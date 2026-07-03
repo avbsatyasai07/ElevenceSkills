@@ -1,61 +1,70 @@
 # Time-Based Visibility & Sentiment Analysis
 
+## Cryptocurrency Dashboard using Python, Selenium, Excel and VBA
+
 ## Project Overview
 
 This project is developed as part of the **Elevance Skills Data Analytics Internship**.
 
 The project combines **Web Scraping, Data Processing, Excel Dashboarding, Sentiment Analysis, and VBA Automation** to build a cryptocurrency monitoring dashboard.
 
-The application scrapes live cryptocurrency market data from **CoinMarketCap**, filters the required coins according to the task specification, performs sentiment analysis based on the 24-hour price movement, exports the processed data into Excel, and displays the **Top 10 cryptocurrencies by 24-hour trading volume**.
+The application scrapes live cryptocurrency market data from **CoinMarketCap**, processes the extracted data, filters cryptocurrencies according to the task requirements, performs sentiment analysis based on 24-hour price movement, and displays the **Top 10 cryptocurrencies based on 24-hour trading volume**.
 
-The dashboard includes **time-based visibility control** using VBA. The chart is visible only during working hours (9:00 AM – 5:00 PM). Outside these hours, the dashboard displays a message asking the user to open it during working hours.
+The Excel dashboard includes **time-based visibility control using VBA**.  
+The dashboard chart is visible only during working hours:
+
+**09:00 AM – 05:00 PM**
+
+Outside working hours, the chart is hidden and a message is displayed asking the user to open the dashboard during working hours.
 
 ---
 
 # Objectives
 
-* Scrape live cryptocurrency market data.
-* Process and clean the extracted data.
-* Perform simple sentiment analysis.
-* Filter cryptocurrencies according to task requirements.
-* Display Top 10 cryptocurrencies based on 24-hour trading volume.
-* Build an Excel dashboard.
-* Automate dashboard visibility using VBA.
-* Refresh dashboard automatically.
+- Scrape live cryptocurrency market data
+- Clean and process extracted data
+- Perform sentiment analysis
+- Filter cryptocurrencies according to requirements
+- Display Top 10 cryptocurrencies based on 24-hour volume
+- Create an Excel dashboard
+- Implement VBA automation
+- Control dashboard visibility based on time
 
 ---
 
 # Technologies Used
 
-### Programming Language
+## Programming Language
 
-* Python 3.x
+- Python 3.x
 
-### Libraries
+## Python Libraries
 
-* Selenium
-* Pandas
-* OpenPyXL
+- Selenium
+- Pandas
+- OpenPyXL
 
-### Tools
+## Tools
 
-* Microsoft Excel
-* VBA (Visual Basic for Applications)
-* Brave Browser
-* ChromeDriver
+- Microsoft Excel
+- VBA (Visual Basic for Applications)
+- Brave Browser
+- ChromeDriver
 
 ---
 
 # Project Structure
 
-```
+```text
 Time-Based Visibility & Sentiment Analysis
+
 │
 ├── scrape_crypto.py
-├── inspect_table.py
 ├── requirements.txt
 ├── crypto_data.xlsx
 ├── crypto_data.xlsm
+├── screenshots/
+│
 └── README.md
 ```
 
@@ -63,206 +72,235 @@ Time-Based Visibility & Sentiment Analysis
 
 # Data Source
 
-Website Used:
+Website:
 
 https://coinmarketcap.com/
 
-The project scrapes the following cryptocurrency information:
+The project extracts:
 
-* Rank
-* Coin Name
-* Symbol
-* Price (USD)
-* 1 Hour Change
-* 24 Hour Change
-* 7 Day Change
-* Market Capitalization
-* 24 Hour Trading Volume
-* Circulating Supply
+- Rank
+- Coin Name
+- Symbol
+- Price (USD)
+- 1 Hour Change
+- 24 Hour Change
+- 7 Day Change
+- Market Capitalization
+- 24 Hour Trading Volume
+- Circulating Supply
 
 ---
 
 # Workflow
 
-## Step 1 – Web Scraping
+## Step 1 - Web Scraping
 
 The Python script uses Selenium to:
 
-* Launch Brave Browser.
-* Open CoinMarketCap.
-* Scroll automatically to load cryptocurrency data.
-* Extract cryptocurrency information from the market table.
-* Store the extracted data inside a Pandas DataFrame.
+- Launch Brave Browser
+- Open CoinMarketCap website
+- Automatically scroll the webpage
+- Load cryptocurrency market data
+- Extract cryptocurrency information
+- Store data in a Pandas DataFrame
 
 ---
 
-## Step 2 – Data Cleaning
+## Step 2 - Data Cleaning
 
 The extracted data is cleaned by:
 
-* Removing commas
-* Removing dollar symbols
-* Converting percentages into numeric values
-* Converting Market Cap and Volume into numeric values for proper sorting
+- Removing unnecessary symbols
+- Removing commas
+- Removing dollar symbols
+- Converting percentage values into numbers
+- Converting Market Cap and Volume values for analysis
 
 ---
 
-## Step 3 – Sentiment Analysis
+## Step 3 - Sentiment Analysis
 
-Sentiment is determined using the 24-hour price change.
+Sentiment analysis is performed using the **24-hour price change percentage**.
 
 Rules:
 
-Positive
+### Positive
 
-* 24h Change > 2%
+```
+24h Change > 2%
+```
 
-Negative
+### Negative
 
-* 24h Change < -2%
+```
+24h Change < -2%
+```
 
-Neutral
+### Neutral
 
-* Between -2% and +2%
-
----
-
-## Step 4 – Filtering
-
-The task requires displaying only cryptocurrencies whose names begin with:
-
-* A
-* E
-* I
-* O
-* U
-* B
-* C
-* D
-
-The program filters only those cryptocurrencies.
+```
+-2% to +2%
+```
 
 ---
 
-## Step 5 – Top 10 Selection
+# Step 4 - Cryptocurrency Filtering
+
+According to the task requirements, only cryptocurrencies starting with the following letters are selected:
+
+- A
+- E
+- I
+- O
+- U
+- B
+- C
+- D
+
+---
+
+# Step 5 - Top 10 Selection
 
 After filtering:
 
-* Coins are sorted using **24-hour Trading Volume**.
-* Top 10 cryptocurrencies are selected.
+- Cryptocurrencies are sorted using **Volume (24h)**
+- The highest volume cryptocurrencies are selected
+- Top 10 results are displayed
 
 ---
 
-## Step 6 – Excel Export
+# Step 6 - Excel Export
 
-The processed data is exported into three worksheets.
+The processed data is exported into Excel.
 
-### All Coins
+The workbook contains:
 
-Contains every scraped cryptocurrency.
+## All Coins
 
-### Filtered Coins
+Contains all scraped cryptocurrency data.
 
-Contains only cryptocurrencies satisfying the filtering condition.
+## Filtered Coins
 
-### Top 10
+Contains cryptocurrencies matching the filtering conditions.
 
-Contains the Top 10 cryptocurrencies sorted by Volume (24h).
+## Top 10
 
----
-
-## Step 7 – Dashboard
-
-A Dashboard worksheet is created in Excel containing:
-
-* Top 10 cryptocurrency table
-* Column Chart
-* Last Refreshed timestamp
-* Working Hours message
+Contains the Top 10 cryptocurrencies sorted by 24-hour volume.
 
 ---
 
-## Step 8 – VBA Automation
+# Step 7 - Excel Dashboard
 
-VBA automatically checks the current system time.
+The dashboard contains:
 
-If current time is between:
+- Top 10 cryptocurrency table
+- Volume comparison chart
+- Sentiment information
+- Last refreshed timestamp
+- Working hours status message
+
+---
+
+# Step 8 - VBA Time-Based Automation
+
+VBA checks the current system time.
+
+If the current time is:
 
 ```
-09:00 AM
-to
-05:00 PM
+09:00 AM - 05:00 PM
 ```
 
-The dashboard chart is displayed.
+The chart is displayed.
 
-Otherwise:
+Outside this time:
 
-The chart is hidden and the following message is displayed:
+- Chart is hidden
+- Warning message is shown
+
+Message:
 
 ```
 Please open in working hours
-(9 am to 5 pm)
+(9 AM to 5 PM)
 ```
 
 ---
 
 # Features
 
-* Live Cryptocurrency Data Scraping
-* Selenium Automation
-* Brave Browser Support
-* Data Cleaning
-* Sentiment Analysis
-* Top 10 Volume Ranking
-* Excel Dashboard
-* VBA Automation
-* Automatic Dashboard Refresh
-* Time-Based Dashboard Visibility
+- Live Cryptocurrency Data Extraction
+- Selenium Web Automation
+- Data Cleaning and Processing
+- Sentiment Classification
+- Cryptocurrency Filtering
+- Top 10 Volume Ranking
+- Excel Dashboard Creation
+- VBA Automation
+- Time-Based Chart Visibility Control
 
 ---
 
-# Output
+# Screenshots
 
-Python generates:
-
-```
-crypto_data.xlsx
-```
-
-The final dashboard is available in:
+Project screenshots are available in:
 
 ```
-crypto_data.xlsm
+screenshots/
 ```
+
+Includes:
+
+- Dashboard output
+- Chart visibility result
+- Working hour validation
 
 ---
 
-# How to Run
+# How to Run the Project
 
 ## 1. Clone Repository
 
+```bash
+git clone https://github.com/avbsatyasai07/ElevenceSkills.git
 ```
-git clone <repository_url>
+
+Move into project folder:
+
+```bash
+cd "ElevenceSkills/Time-Based Visibility & Sentiment Analysis"
 ```
 
 ---
 
 ## 2. Install Dependencies
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 3. Run Python Script
+## 3. Browser Setup
 
-```
+This project uses **Brave Browser with Selenium**.
+
+Make sure:
+
+- Brave Browser is installed
+- ChromeDriver is installed
+- ChromeDriver version matches your browser version
+- Browser path is configured correctly in `scrape_crypto.py`
+
+---
+
+## 4. Run Python Script
+
+```bash
 python scrape_crypto.py
 ```
 
-This generates:
+After execution, it generates:
 
 ```
 crypto_data.xlsx
@@ -270,44 +308,62 @@ crypto_data.xlsx
 
 ---
 
-## 4. Open Dashboard
+# Open Excel Dashboard
 
-Open
+Open:
 
 ```
 crypto_data.xlsm
 ```
 
-Enable Macros when prompted.
+Enable macros when Excel asks.
 
-The dashboard automatically checks the current time and controls chart visibility.
+The VBA automation will automatically check the current time and control chart visibility.
+
+---
+
+# Macro Permission Note
+
+Since VBA macros are used, Excel may disable macros by default.
+
+Enable macros:
+
+```
+File
+ → Options
+ → Trust Center
+ → Macro Settings
+ → Enable VBA Macros
+```
 
 ---
 
 # Expected Output
 
-* Live cryptocurrency data
-* Filtered cryptocurrency list
-* Top 10 by Volume
-* Sentiment Analysis
-* Excel Dashboard
-* Automatic VBA-controlled chart visibility
+The final output includes:
+
+- Live cryptocurrency dataset
+- Filtered cryptocurrency records
+- Sentiment analysis results
+- Top 10 cryptocurrencies by volume
+- Excel dashboard
+- VBA-controlled chart visibility
 
 ---
 
 # Learning Outcomes
 
-This project demonstrates practical knowledge of:
+This project demonstrates knowledge of:
 
-* Web Scraping
-* Selenium Automation
-* Data Cleaning
-* Data Analysis
-* Excel Automation
-* VBA Programming
-* Dashboard Development
-* Financial Data Processing
-* Automation using Python and Excel
+- Web Scraping
+- Selenium Automation
+- Data Cleaning
+- Data Analysis
+- Financial Data Processing
+- Excel Dashboard Development
+- VBA Programming
+- Python and Excel Integration
+- Automation Techniques
 
 ---
 
@@ -315,8 +371,7 @@ This project demonstrates practical knowledge of:
 
 **Veera Bala Satya Sai Appana**
 
-B.Tech – Data Science
-
-Aditya University
+B.Tech - Data Science  
+Aditya University  
 
 Elevance Skills Data Analytics Internship
