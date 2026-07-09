@@ -241,10 +241,18 @@ Through this project:
 
 ---
 
-# 📷 Dashboard Preview
 
-Add dashboard screenshot here.
 
+## 📷 Dashboard Preview
+
+### $0-$50 Price Category
+
+![Dashboard - $0-$50](image-1.png)
+
+
+### Above $50 Price Category
+
+![Dashboard - Above $50](image-2.png)
 ---
 
 # 👨‍💻 Author
