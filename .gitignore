@@ -1,4 +1,15 @@
-.venv/
+# Python environments
+venv/
+*/venv/
+
+# Python cache
 __pycache__/
 *.pyc
-.vscode/
+
+# Browser profiles
+brave_profile/
+selenium_brave_profile/
+
+# Excel temp files
+~$*.xlsx
+~$*.xlsm

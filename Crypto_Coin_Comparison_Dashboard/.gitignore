@@ -1,0 +1,16 @@
+# Virtual Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Browser test profiles
+brave_profile/
+selenium_brave_profile/
+
+# Excel temporary files
+~$*.xlsx
+
+# VS Code settings
+.vscode/
