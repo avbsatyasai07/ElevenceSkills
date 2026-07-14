@@ -1,0 +1,42 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment Variables
+.env
+
+# VS Code
+.vscode/
+
+# JetBrains IDE
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python Build
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+
+# Excel Temporary Files
+~$*.xlsx
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Pytest
+.pytest_cache/
