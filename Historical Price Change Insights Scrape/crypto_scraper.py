@@ -5,14 +5,21 @@ import pandas as pd
 import time
 
 # ---------------- Browser Setup ----------------
+
 options = Options()
+
+# Change this path if your Brave Browser is installed elsewhere
+options.binary_location = r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+
 options.add_argument("--start-maximized")
 
 driver = webdriver.Chrome(options=options)
 
 crypto_data = []
 
+
 # ---------------- Scrape Function ----------------
+
 def scrape_page(page):
 
     url = f"https://coinmarketcap.com/?page={page}"
@@ -42,6 +49,7 @@ def scrape_page(page):
 
             cells = row.find_elements(By.TAG_NAME, "td")
 
+            # Skip invalid rows
             if len(cells) != 11:
                 continue
 
@@ -71,7 +79,7 @@ def scrape_page(page):
 
             current_price = float(current_price)
 
-            # 1 Hour %
+            # 1 Hour Change %
             change1 = (
                 cells[4]
                 .text
@@ -82,9 +90,9 @@ def scrape_page(page):
             if change1 == "":
                 change1 = "0"
 
-            change1 = float(change1)
+            change1 = abs(float(change1))
 
-            # 24 Hour %
+            # 24 Hour Change %
             change24 = (
                 cells[5]
                 .text
@@ -95,9 +103,9 @@ def scrape_page(page):
             if change24 == "":
                 change24 = "0"
 
-            change24 = float(change24)
+            change24 = abs(float(change24))
 
-            # 7 Day %
+            # 7 Day Change %
             change7 = (
                 cells[6]
                 .text
@@ -108,7 +116,7 @@ def scrape_page(page):
             if change7 == "":
                 change7 = "0"
 
-            change7 = float(change7)
+            change7 = abs(float(change7))
 
             crypto_data.append([
                 coin_name,
@@ -124,12 +132,15 @@ def scrape_page(page):
 
 
 # ---------------- Scrape Both Pages ----------------
+
 scrape_page(1)
 scrape_page(2)
 
 driver.quit()
 
+
 # ---------------- Create DataFrame ----------------
+
 df = pd.DataFrame(
     crypto_data,
     columns=[
@@ -143,19 +154,83 @@ df = pd.DataFrame(
 )
 
 # Remove duplicate symbols
-df = df.drop_duplicates(subset=["Symbol"])
+df.drop_duplicates(
+    subset=["Symbol"],
+    inplace=True
+)
 
 # Reset index
-df.reset_index(drop=True, inplace=True)
+df.reset_index(
+    drop=True,
+    inplace=True
+)
 
-# Save Excel
+
+# ---------------- Average Downfall Percentage ----------------
+
+df["Average Downfall %"] = (
+    df["1H Change %"] +
+    df["24H Change %"] +
+    df["7D Change %"]
+) / 3
+
+df["Average Downfall %"] = df[
+    "Average Downfall %"
+].round(4)
+
+
+# ---------------- Price Range Categorization ----------------
+
+def price_range(price):
+
+    if price <= 0.05:
+        return "$0 - $0.05"
+
+    elif price <= 0.5:
+        return "$0.05 - $0.5"
+
+    elif price <= 5:
+        return "$0.5 - $5"
+
+    elif price <= 50:
+        return "$5 - $50"
+
+    else:
+        return ">$50"
+
+
+df["Price Range"] = df["Current Price"].apply(price_range)
+
+
+# ---------------- Sort by Least Average Downfall ----------------
+
+df.sort_values(
+    by="Average Downfall %",
+    inplace=True
+)
+
+df.reset_index(
+    drop=True,
+    inplace=True
+)
+
+
+# ---------------- Save Excel File ----------------
+
+file_name = "low_budget_investment_insights.xlsx"
+
 df.to_excel(
-    "crypto_price_change.xlsx",
+    file_name,
     index=False
 )
+
+
+# ---------------- Output ----------------
 
 print("\n==============================")
 print(df.head(10))
 print("==============================")
-print("Total Coins:", len(df))
-print("Excel File Created Successfully!")
+
+print("\nTotal Coins Scraped :", len(df))
+print("\nExcel File Created Successfully!")
+print(f"File Name : {file_name}")
